@@ -19,7 +19,7 @@ The primary goal of this project is to demonstrate how to structure and deploy m
 The system consists of the following services:
 
 1. **Eureka Server**: A **Service Registry** for all microservices to register and discover each other.
-2. **API Gateway (Zuul)**: Routes incoming client requests to appropriate microservices. It provides a single entry point into the system, reducing complexity for consumers.
+2. **API Gateway (Spring-Cloud API Gateway)**: Routes incoming client requests to appropriate microservices. It provides a single entry point into the system, reducing complexity for consumers.
 3. **Product Quote Service**: Handles all operations related to generating product quotes.
 4. **Order Service**: Manages order creation and processing.
 5. **Document Generation Service**: Responsible for generating documents associated with orders.
@@ -48,7 +48,7 @@ Below is a high-level diagram that illustrates the communication and flow betwee
    - Each microservice registers itself with **Eureka** at startup.
    - Services can dynamically discover each other using the Eureka registry.
 
-2. **API Gateway (Zuul)**:
+2. **API Gateway (Spring-Cloud API Gateway)**:
    - The **API Gateway** acts as the entry point for external requests. All incoming traffic first reaches the **API Gateway**, which routes it to the appropriate microservice.
    - The **API Gateway** uses **Spring Cloud Gateway** and **Spring Cloud LoadBalancer** to route requests and balance traffic across multiple instances of microservices.
 
@@ -279,6 +279,35 @@ To better understand the system, below are placeholders for various diagrams and
 
 3. **Docker Container Setup**:  
    ![Docker Containers](path_to_docker_container_diagram.png)
+
+---
+
+Absolutely! You can add these two questions and their answers in the **Key Learnings** or **Surprise Learnings** section, to explain why you initially considered Zuul and Ribbon but later switched to Spring Cloud Gateway and Spring Cloud LoadBalancer due to their advantages. Here’s a concise and focused version of the section to answer your questions:
+
+---
+
+### **Key Learnings**
+
+#### **1. Why Did I Initially Consider Zuul and Ribbon?**
+At the start of the project, **Zuul** and **Ribbon** were popular choices for API Gateway and load balancing in Spring Cloud applications. Both were widely used in microservices architectures for routing and client-side load balancing.
+
+- **Zuul** was the go-to solution for API Gateway functionality, providing features like routing, security, and rate limiting.
+- **Ribbon** was the standard for client-side load balancing, helping distribute traffic among different instances of services.
+
+#### **2. Why Did I Switch to Spring Cloud Gateway and Spring Cloud LoadBalancer?**
+However, as I explored newer Spring Cloud solutions, I discovered that **Spring Cloud Gateway** and **Spring Cloud LoadBalancer** offer better performance, scalability, and ease of use compared to Zuul and Ribbon. 
+
+- **Spring Cloud Gateway** is the **preferred alternative to Zuul** because it is:
+  - Non-blocking and **asynchronous**, offering better scalability.
+  - **More modern**, with more flexible and powerful routing configurations.
+  - Actively developed and **better integrated** with the Spring ecosystem.
+  
+- **Spring Cloud LoadBalancer** is a **simpler, more lightweight alternative to Ribbon**. It provides:
+  - **Native support** in Spring Cloud with easy configuration and integration.
+  - No complex setups or custom configurations, unlike Ribbon, which required additional complexity.
+  - It’s also **actively maintained**, while Ribbon is in maintenance mode.
+
+By opting for **Spring Cloud Gateway** and **Spring Cloud LoadBalancer**, I was able to ensure a more **modern, efficient, and scalable microservices system**. These solutions are well-suited for future-proofing applications and ensuring better performance and long-term support.
 
 ---
 
