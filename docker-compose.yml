@@ -1,0 +1,76 @@
+version: "3.8"
+services:
+  eureka-server:
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    image: eureka-server:latest
+    container_name: eureka-server
+    networks:
+      - app-network
+    environment:
+      - JAVA_OPTS=-Dserver.port=8761
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    image: api-gateway:latest
+    container_name: api-gateway
+    ports:
+      - "8080:8080"  # Exposing only the API Gateway port to the host
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+    environment:
+      - JAVA_OPTS=-Dserver.port=8080
+      - spring.cloud.discovery.enabled=true
+      - spring.cloud.gateway.discovery.locator.enabled=true
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+
+  product-quote-service:
+    build:
+      context: ./product-quote-service
+      dockerfile: Dockerfile
+    image: product-quote-service:latest
+    container_name: product-quote-service
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+    environment:
+      - JAVA_OPTS=-Dserver.port=8081
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+
+  order-service:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    image: order-service:latest
+    container_name: order-service
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+    environment:
+      - JAVA_OPTS=-Dserver.port=8082
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+
+  docgen-service:
+    build:
+      context: ./docgen-service
+      dockerfile: Dockerfile
+    image: docgen-service:latest
+    container_name: docgen-service
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+    environment:
+      - JAVA_OPTS=-Dserver.port=8083
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+
+networks:
+  app-network:
+    driver: bridge
