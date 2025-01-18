@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
     image: eureka-server:latest
     container_name: eureka-server
+    ports:
+      - "8761:8761"  # Exposing the Eureka port to the host to check the registry
     networks:
       - app-network
     environment:
@@ -18,7 +20,7 @@ services:
     image: api-gateway:latest
     container_name: api-gateway
     ports:
-      - "8080:8080"  # Exposing only the API Gateway port to the host
+      - "8080:8080"  # Exposing the API Gateway port to the host
     networks:
       - app-network
     depends_on:
