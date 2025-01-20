@@ -40,7 +40,7 @@ The main goal of this project is to:
 
 Below is a high-level diagram that illustrates the communication and flow between different components in the system:
 
-![Microservices Architecture](path_to_image.png)
+![alt text](<system design.svg>)
 
 ### **Component Details:**
 
