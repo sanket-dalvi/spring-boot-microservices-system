@@ -22,11 +22,14 @@ pipeline {
             steps {
                 script {
 
-                    // Ensure gradlew is executable
-                    sh 'chmod +x ./gradlew'
-                    
-                    // Build all the services using Gradle
-                    sh './gradlew clean build'
+                    // Run Gradle build inside each microservice directory
+                    sh '''
+                        cd eureka-server && ./gradlew clean build && cd ..
+                        cd api-gateway && ./gradlew clean build && cd ..
+                        cd product-quote-service && ./gradlew clean build && cd ..
+                        cd order-service && ./gradlew clean build && cd ..
+                        cd docgen-service && ./gradlew clean build && cd ..
+                    '''
                 }
             }
         }
