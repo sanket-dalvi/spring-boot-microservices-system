@@ -2,8 +2,6 @@ pipeline {
     agent any
 
     environment {
-        //set java home path
-        JAVA_HOME = '/opt/java/openjdk'
         // Define the Docker images for all services
         EUREKA_IMAGE = 'eureka-server:latest'
         API_GATEWAY_IMAGE = 'api-gateway:latest'
