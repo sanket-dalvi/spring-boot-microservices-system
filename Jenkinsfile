@@ -22,8 +22,13 @@ pipeline {
             steps {
                 script {
 
-                    // Run Gradle build inside each microservice directory
                     sh '''
+                        chmod +x eureka-server/gradlew
+                        chmod +x api-gateway/gradlew
+                        chmod +x product-quote-service/gradlew
+                        chmod +x order-service/gradlew
+                        chmod +x docgen-service/gradlew
+
                         cd eureka-server && ./gradlew clean build && cd ..
                         cd api-gateway && ./gradlew clean build && cd ..
                         cd product-quote-service && ./gradlew clean build && cd ..
