@@ -1,11 +1,9 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK21'  // Use the name you configured in Jenkins' Global Tool Configuration
-    }
-
     environment {
+        //set java home path
+        JAVA_HOME = '/opt/java/openjdk'
         // Define the Docker images for all services
         EUREKA_IMAGE = 'eureka-server:latest'
         API_GATEWAY_IMAGE = 'api-gateway:latest'
