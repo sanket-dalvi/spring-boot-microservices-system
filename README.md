@@ -282,10 +282,6 @@ To better understand the system, below are placeholders for various diagrams and
 
 ---
 
-Absolutely! You can add these two questions and their answers in the **Key Learnings** or **Surprise Learnings** section, to explain why you initially considered Zuul and Ribbon but later switched to Spring Cloud Gateway and Spring Cloud LoadBalancer due to their advantages. Here’s a concise and focused version of the section to answer your questions:
-
----
-
 ### **Key Learnings**
 
 #### **1. Why Did I Initially Consider Zuul and Ribbon?**
