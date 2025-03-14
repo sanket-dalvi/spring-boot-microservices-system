@@ -21,6 +21,10 @@ pipeline {
         stage('Build') {
             steps {
                 script {
+
+                    // Ensure gradlew is executable
+                    sh 'chmod +x ./gradlew'
+                    
                     // Build all the services using Gradle
                     sh './gradlew clean build'
                 }
