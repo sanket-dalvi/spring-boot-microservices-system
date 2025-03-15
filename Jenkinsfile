@@ -2,6 +2,9 @@ pipeline {
     agent any
 
     environment {
+        // Define the location to store prometheus.yml inside Jenkins workspace
+        PROMETHEUS_CONFIG_DIR = '/var/jenkins_home/workspace/prometheus-config'
+        
         // Define the Docker images for all services
         EUREKA_IMAGE = 'eureka-server:latest'
         API_GATEWAY_IMAGE = 'api-gateway:latest'
@@ -15,6 +18,19 @@ pipeline {
             steps {
                 // Checkout the code from GitHub
                 git 'https://github.com/sanket-dalvi/spring-boot-microservices-system.git'
+            }
+        }
+
+        stage('Prepare Prometheus Configuration') {
+            steps {
+                script {
+                    // Ensure the directory exists (creates if doesn't exist)
+                    sh 'mkdir -p ${PROMETHEUS_CONFIG_DIR}'
+
+                    // Copy prometheus.yml into the directory from your repository or another source
+                    // Assuming the file is located in your repo at /config/prometheus.yml
+                    sh 'cp prometheus.yml ${PROMETHEUS_CONFIG_DIR}/prometheus.yml'
+                }
             }
         }
 
