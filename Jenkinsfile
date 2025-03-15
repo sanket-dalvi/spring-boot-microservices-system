@@ -21,7 +21,6 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-
                     sh '''
                         chmod +x eureka-server/gradlew
                         chmod +x api-gateway/gradlew
@@ -49,6 +48,18 @@ pipeline {
                         docker build -t ${PRODUCT_QUOTE_SERVICE_IMAGE} ./product-quote-service
                         docker build -t ${ORDER_SERVICE_IMAGE} ./order-service
                         docker build -t ${DOCGEN_SERVICE_IMAGE} ./docgen-service
+                    '''
+                }
+            }
+        }
+
+        stage('Cleanup Old Containers') {
+            steps {
+                script {
+                    // Remove any old containers before starting new ones
+                    echo "Cleaning up old containers..."
+                    sh '''
+                        docker-compose -f docker-compose.yml down || true
                     '''
                 }
             }
