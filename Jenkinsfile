@@ -26,7 +26,7 @@ pipeline {
                     sh 'mkdir -p /var/jenkins_home/workspace/prometheus-config/'
 
                     // Copy the prometheus.yml from workspace to the permanent location
-                    sh 'cp prometheus.yml /var/jenkins_home/prometheus-config/'
+                    sh 'cp prometheus.yml /var/jenkins_home/workspace/prometheus-config/'
 
                     // Set the permissions for the copied file
                     sh 'chmod 644 /var/jenkins_home/workspace/prometheus-config/prometheus.yml'
